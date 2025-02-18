@@ -1,5 +1,5 @@
 # Spark
-Spark basic to advance training
+Spark basic to advanced training
 
 We will train in three areas: Basic, Intermediate, and Advanced
 
@@ -8,4 +8,4 @@ The scripts with the "chap" suffix are written from Spark: The Definitive Guide 
 
 To run each file try to use "spark-submit file_name".
 
-The basic level starts from the beginning till the chapter 3-ML-KMeans file.
+The basic level starts from the beginning till the chap3-ML-KMeans file.
