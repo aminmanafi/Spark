@@ -1,6 +1,7 @@
 from pyspark.sql import SparkSession
 from pyspark.sql.types import StructField, StructType, StringType, LongType
 from pyspark.sql.functions import expr, col, column
+from pyspark.sql.functions import lit
 
 
 # Initialize SparkSession
@@ -37,11 +38,18 @@ col("DEST_COUNTRY_NAME").alias("destinationB"),
 column("DEST_COUNTRY_NAME"))\
 .show(2)
 
+# shorthand for using select with expr
+df.selectExpr("DEST_COUNTRY_NAME as newColumnName", "DEST_COUNTRY_NAME").show(2)
+
+
+df.selectExpr(
+"*", # all original columns
+"(DEST_COUNTRY_NAME = ORIGIN_COUNTRY_NAME) as withinCountry")\
+.show(2)
+
+# agg with selectExpr
+df.selectExpr("avg(count)", "count(distinct(DEST_COUNTRY_NAME))").show(2)
 
 
 
-
-
-
-
-
+df.select(expr("*"), lit(1).alias("One")).show(2)
