@@ -84,3 +84,10 @@ spark.read.format("json").load("../data/flight-data/json/*-summary.json")\
 # limit
 df.limit(5).show()
 df.orderBy(expr("count desc")).limit(6).show()
+
+# Collecting Rows to the Driver
+collectDF = df.limit(10)
+collectDF.take(5) # take works with an Integer count, first 5 rows
+collectDF.show() # this prints it out nicely
+collectDF.show(5, False)
+collectDF.collect() # get all data
