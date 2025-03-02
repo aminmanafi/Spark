@@ -5,7 +5,7 @@ from pyspark.sql.functions import expr, col
 
 # Initialize SparkSession
 spark = SparkSession.builder \
-    .appName("Basic") \
+    .appName("Intermediate") \
     .getOrCreate()
 
 # defining schema

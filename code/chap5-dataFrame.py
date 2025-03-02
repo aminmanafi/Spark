@@ -6,7 +6,7 @@ from pyspark.sql.functions import lit
 
 # Initialize SparkSession
 spark = SparkSession.builder \
-    .appName("Basic") \
+    .appName("Intermediate") \
     .getOrCreate()
 
 # defining schema

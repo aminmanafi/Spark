@@ -9,7 +9,7 @@ from pyspark.sql.functions import desc, asc, asc_nulls_first, desc_nulls_first, 
 
 # Initialize SparkSession
 spark = SparkSession.builder \
-    .appName("Basic") \
+    .appName("Intermediate") \
     .getOrCreate()
 
 # defining schema

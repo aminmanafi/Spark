@@ -7,7 +7,7 @@ from pyspark.sql.functions import lit, instr, expr, pow, round, bround, corr, mo
 
 # Initialize SparkSession
 spark = SparkSession.builder \
-    .appName("Basic") \
+    .appName("Intermediate") \
     .getOrCreate()
 
 df = spark.read.format("csv")\
