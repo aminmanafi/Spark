@@ -84,3 +84,30 @@ graduateProgram.join(person, joinExpression, joinType).show()
 
 # main cross join
 person.crossJoin(graduateProgram).show()
+
+# join on complex types
+person.withColumnRenamed("id", "personId")\
+.join(sparkStatus, expr("array_contains(spark_status, id)")).show()
+
+# duplicate column names
+gradProgramDupe = graduateProgram.withColumnRenamed("id", "graduate_program")
+joinExpr = gradProgramDupe["graduate_program"] == person["graduate_program"]
+
+person.join(gradProgramDupe, joinExpr).show()
+# person.join(gradProgramDupe, joinExpr).select("graduate_program").show() # returns an error
+
+# approach 1
+person.join(gradProgramDupe,"graduate_program").select("graduate_program").show()
+
+#approach 2
+person.join(gradProgramDupe, joinExpr).drop(person["graduate_program"])\
+.select("graduate_program").show()
+
+# approach 3
+gradProgram3 = graduateProgram.withColumnRenamed("id", "grad_id")
+joinExpr = person["graduate_program"] == gradProgram3["grad_id"]
+person.join(gradProgram3, joinExpr).show()
+
+# join type
+joinExpr = person["graduate_program"] == graduateProgram["id"]
+person.join(graduateProgram, joinExpr).explain()
