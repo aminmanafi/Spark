@@ -120,3 +120,24 @@ newPath = "jdbc:sqlite://tmp/my-sqlite.db"
 csvFile.write.jdbc(newPath, tablename, mode="append", properties=props)
 
 
+## TEXT FILES
+# read
+spark.read.textFile("/data/flight-data/csv/2010-summary.csv")\
+.selectExpr("split(value, ',') as rows").show()
+
+# write (just one column)
+csvFile.select("DEST_COUNTRY_NAME").write.text("/tmp/simple-text-file.txt")
+
+# write multi coulmns (multi directories will be created)
+csvFile.limit(10).select("DEST_COUNTRY_NAME", "count")\
+.write.partitionBy("count").text("/tmp/five-csv-files2py.csv")
+
+# partioning and writing
+csvFile.limit(10).write.mode("overwrite").partitionBy("DEST_COUNTRY_NAME")\
+.save("/tmp/partitioned-files.parquet")
+
+# bucketing and writing
+numberBuckets = 10
+columnToBucketBy = "count"
+csvFile.write.format("parquet").mode("overwrite")\
+.bucketBy(numberBuckets, columnToBucketBy).saveAsTable("bucketedFiles")
